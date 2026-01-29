@@ -3,8 +3,11 @@
 [![Version](https://img.shields.io/badge/version-0.0.1--beta-orange.svg)](https://github.com/yourusername/server-audit-tool/releases)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Raspberry%20Pi-lightgrey.svg)]()
+[![AI Assisted](https://img.shields.io/badge/AI%20Assisted-Google%20Gemini-blue.svg)]()
 
 🔒 **Modüler Linux/Raspberry Pi Güvenlik Denetim Aracı**
+
+🤖 *Bu proje Google Gemini (Gemini CLI) yapay zeka asistanı ile pair programming yöntemiyle geliştirilmiştir.*
 
 Clean Architecture ve SOLID prensiplerine uygun, genişletilebilir güvenlik tarama aracı.
 
