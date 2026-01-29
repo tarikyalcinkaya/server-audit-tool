@@ -122,3 +122,59 @@ sys_get_failed_ssh_ips_authlog() {
     # auth.log'dan başarısız IP'leri döndürür
     grep "Failed password" /var/log/auth.log 2>/dev/null | awk '{print $(NF-3)}' | sort | uniq -c | sort -nr | head -n 3
 }
+
+# --- Gelişmiş SSH Analiz Fonksiyonları ---
+
+sys_get_top_attacker_ips() {
+    # Top N saldırgan IP'yi döndürür (varsayılan 10)
+    local count="${1:-10}"
+    if sys_command_exists "journalctl"; then
+        journalctl -u ssh -S today --no-pager 2>/dev/null | \
+            grep "Failed password" | \
+            awk '{print $(NF-3)}' | \
+            sort | uniq -c | sort -nr | head -n "$count"
+    elif sys_file_exists "/var/log/auth.log"; then
+        grep "Failed password" /var/log/auth.log 2>/dev/null | \
+            awk '{print $(NF-3)}' | \
+            sort | uniq -c | sort -nr | head -n "$count"
+    fi
+}
+
+sys_get_targeted_usernames() {
+    # En çok hedeflenen kullanıcı adlarını döndürür
+    local count="${1:-5}"
+    if sys_command_exists "journalctl"; then
+        journalctl -u ssh -S today --no-pager 2>/dev/null | \
+            grep "Failed password" | \
+            grep -oP "for \K\w+" | \
+            sort | uniq -c | sort -nr | head -n "$count"
+    elif sys_file_exists "/var/log/auth.log"; then
+        grep "Failed password" /var/log/auth.log 2>/dev/null | \
+            grep -oP "for \K\w+" | \
+            sort | uniq -c | sort -nr | head -n "$count"
+    fi
+}
+
+sys_get_hourly_attack_distribution() {
+    # Saat bazlı saldırı dağılımını döndürür
+    if sys_command_exists "journalctl"; then
+        journalctl -u ssh -S today --no-pager 2>/dev/null | \
+            grep "Failed password" | \
+            awk '{print substr($3,1,2)":00"}' | \
+            sort | uniq -c | sort -k2
+    elif sys_file_exists "/var/log/auth.log"; then
+        grep "Failed password" /var/log/auth.log 2>/dev/null | \
+            awk '{print substr($3,1,2)":00"}' | \
+            sort | uniq -c | sort -k2
+    fi
+}
+
+sys_check_ip_banned() {
+    # IP'nin Fail2Ban'da banlı olup olmadığını kontrol eder
+    local ip="$1"
+    if sys_command_exists "fail2ban-client"; then
+        fail2ban-client status sshd 2>/dev/null | grep -q "$ip"
+        return $?
+    fi
+    return 1
+}

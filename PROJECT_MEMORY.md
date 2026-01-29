@@ -83,6 +83,7 @@ run_example_check() {
 - [x] lib/system_adapter.sh (Infrastructure)
 - [x] main.sh (Orchestration)
 - [x] 6 güvenlik modülü (Domain)
+- [x] SSH saldırı analiz modülü (65_ssh_attack_analysis.sh)
 
 ### Gelecek Geliştirmeler
 
@@ -90,3 +91,4 @@ run_example_check() {
 - [ ] Modül bazlı severity scoring
 - [ ] Otomatik düzeltme (--fix) modu
 - [ ] CI/CD entegrasyonu
+
