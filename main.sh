@@ -11,7 +11,7 @@
 # İŞ MANTIĞI BARINDIRMAZ!
 # ==============================================
 
-set -e
+# Not using set -e to allow modules to handle errors gracefully
 
 # Script'in bulunduğu dizini tespit et
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -47,9 +47,9 @@ if [ -d "$MODULE_DIR" ]; then
             module_name=$(basename "$module" .sh | sed 's/^[0-9]*_//')
             func_name="run_${module_name}_check"
             
-            # Fonksiyon varsa çalıştır
+            # Fonksiyon varsa çalıştır (hata yakalama ile)
             if declare -f "$func_name" > /dev/null; then
-                "$func_name"
+                "$func_name" || print_warn "Modül hatası: $module_name"
             fi
         fi
     done
