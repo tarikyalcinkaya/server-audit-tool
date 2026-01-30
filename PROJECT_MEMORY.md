@@ -1,4 +1,4 @@
-# PROJECT MEMORY - Raspberry Pi Security Audit Tool
+# PROJECT MEMORY - Raspberry Pi Security Audit Tool (v0.0.2-beta)
 
 ## Context
 
@@ -21,13 +21,18 @@ rpi-audit-tool/
 ├── lib/
 │   ├── utils.sh               # Presentation Layer - UI, renkler, log formatları
 │   └── system_adapter.sh      # Infrastructure Layer - OS komut wrapper'ları
-└── modules/
-    ├── 10_system.sh           # Domain - Sistem güncelleme kontrolü
-    ├── 20_users.sh            # Domain - Kullanıcı güvenliği
-    ├── 30_ssh.sh              # Domain - SSH sıkılaştırma
-    ├── 40_network.sh          # Domain - Ağ/Firewall
-    ├── 50_permissions.sh      # Domain - Dosya izinleri
-    └── 60_logs.sh             # Domain - Log analizi
+├── modules/
+│   ├── 10_system.sh           # Domain - Sistem güncelleme kontrolü
+│   ├── 20_users.sh            # Domain - Kullanıcı güvenliği
+│   ├── 30_ssh.sh              # Domain - SSH sıkılaştırma
+│   ├── 40_network.sh          # Domain - Ağ/Firewall
+│   ├── 50_permissions.sh      # Domain - Dosya izinleri
+│   ├── 60_logs.sh             # Domain - Log analizi
+│   └── 65_ssh_attack_analysis.sh  # Domain - Detaylı SSH saldırı analizi
+└── docs/                      # Dokümantasyon klasörü
+    ├── ARCHITECTURE.md        # Mimari detayları
+    ├── MODULES.md             # Modül referansı
+    └── API.md                 # Library API referansı
 ```
 
 ### Katman Sorumlulukları
@@ -82,13 +87,15 @@ run_example_check() {
 - [x] lib/utils.sh (Presentation)
 - [x] lib/system_adapter.sh (Infrastructure)
 - [x] main.sh (Orchestration)
-- [x] 6 güvenlik modülü (Domain)
-- [x] SSH saldırı analiz modülü (65_ssh_attack_analysis.sh)
+- [x] 6 temel güvenlik modülü (Domain)
+- [x] 65_ssh_attack_analysis.sh (Gelişmiş SSH Analizi)
+- [x] Merkezi dokümantasyon yapısı (docs/)
 
 ### Gelecek Geliştirmeler
 
-- [ ] HTML/JSON rapor export
-- [ ] Modül bazlı severity scoring
+- [ ] HTML/JSON rapor export (Raporlama Katmanı)
+- [ ] Modül bazlı severity scoring (Dinamik skorlama)
 - [ ] Otomatik düzeltme (--fix) modu
-- [ ] CI/CD entegrasyonu
+- [ ] CI/CD entegrasyonu (Github Actions)
+- [ ] Docker konteyner güvenlik taraması modülü
 
