@@ -188,3 +188,132 @@ sys_check_ip_banned() {
     fi
     return 1
 }
+
+# --- Kernel Hardening ---
+
+sys_get_sysctl_value() {
+    # Kernel parametresini okur
+    # Kullanım: sys_get_sysctl_value "net.ipv4.ip_forward"
+    sysctl -n "$1" 2>/dev/null
+}
+
+# --- Servis ve Süreçler ---
+
+sys_get_active_services() {
+    # Aktif servisleri listeler
+    systemctl list-units --type=service --state=active --no-pager --plain | awk '{print $1}'
+}
+
+sys_get_listening_processes() {
+    # Dinleyen süreçleri ve portları getirir
+    ss -tulpn 2>/dev/null
+}
+
+sys_get_processes_from_tmp() {
+    # /tmp veya /dev/shm üzerinden çalışan süreçleri bulur
+    ls -l /proc/*/exe 2>/dev/null | grep -E "/tmp/|/dev/shm/" | awk '{print $9, $11}'
+}
+
+# --- Dosya ve İzinler ---
+
+sys_find_suid_files() {
+    # SUID bit set edilmiş dosyaları bulur
+    find / -type f -perm -4000 2>/dev/null
+}
+
+sys_find_world_writeable_files() {
+    # Herkesin yazabildiği dosyaları bulur
+    find / -xdev -type f -perm -0002 2>/dev/null
+}
+
+sys_find_unowned_files() {
+    # Sahibi olmayan dosyaları bulur
+    find / -xdev \( -nouser -o -nogroup \) 2>/dev/null
+}
+
+sys_find_sensitive_files() {
+    # Hassas olabilecek dosyaları arar (.env, .pem, vb)
+    # Bu işlem uzun sürebilir, sadece belirli dizinlerde aranmalı
+    local search_path="${1:-/var/www}"
+    find "$search_path" -type f \( -name ".env" -o -name "*.pem" -o -name "*.key" -o -name "id_rsa" \) 2>/dev/null
+}
+
+sys_calculate_file_hash() {
+    # Dosyanın SHA256 hash'ini hesaplar
+    local file_path="$1"
+    if [ -f "$file_path" ]; then
+        sha256sum "$file_path" | awk '{print $1}'
+    fi
+}
+
+sys_check_mount_options() {
+    # Mount seçeneklerini kontrol eder (/tmp noexec mi?)
+    mount | grep "on $1 type"
+}
+
+# --- Kötü Amaçlı Yazılım Taraması ---
+
+sys_check_clamav() {
+    # ClamAV kurulu mu?
+    command -v clamscan >/dev/null 2>&1
+}
+
+sys_run_clamav_scan() {
+    # Belirtilen dizini tarar (Örn: /tmp)
+    local scan_dir="$1"
+    if sys_check_clamav; then
+        clamscan -r --no-summary --infected "$scan_dir" 2>/dev/null
+    fi
+}
+
+sys_run_rkhunter() {
+    # RKHunter kontrolü (warning verenleri döndürür)
+    if command -v rkhunter >/dev/null 2>&1; then
+        rkhunter --check --rwo --sk 2>/dev/null
+    fi
+}
+
+# --- Ağ Keşfi ---
+
+sys_check_promiscuous() {
+    # Promiscuous moddaki arayüzleri bulur
+    ip link | grep "PROMISC"
+}
+
+sys_get_arp_table() {
+    # ARP tablosunu döndürür
+    ip neigh show
+}
+
+# --- Boot ve SSL ---
+
+sys_read_file_content() {
+    # Dosya içeriğini okur
+    local file_path="$1"
+    if [ -f "$file_path" ]; then
+        cat "$file_path"
+    fi
+}
+
+sys_check_ssl_expiry() {
+    # SSL sertifikasının bitiş tarihini kontrol eder
+    local cert_file="$1"
+    if [ -f "$cert_file" ]; then
+        openssl x509 -enddate -noout -in "$cert_file" 2>/dev/null | cut -d= -f2
+    fi
+}
+
+# --- Cron ve Geçmiş ---
+
+sys_get_cron_jobs() {
+    # Tüm kullanıcıların cron işlerini listeler
+    for user in $(cut -f1 -d: /etc/passwd); do
+        crontab -u "$user" -l 2>/dev/null | grep -v "^#"
+    done
+    ls -1 /etc/cron.* 2>/dev/null
+}
+
+sys_get_login_history() {
+    # Giriş geçmişini alır
+    last -n 20
+}
