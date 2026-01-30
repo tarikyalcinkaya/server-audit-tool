@@ -5,6 +5,13 @@ Tüm önemli değişiklikler bu dosyada belgelenir.
 Format [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) standardına,
 versiyonlama [Semantic Versioning](https://semver.org/lang/tr/) standardına uygundur.
 
+## [0.0.3-beta] - 2026-01-30
+
+### Added
+- **İnteraktif Modül Seçimi:** `main.sh` argümansız çalıştırıldığında kullanıcıya hangi modülleri çalıştırmak istediğini soran menü eklendi.
+- **CLI Argüman Desteği:** `sudo ./main.sh ssh network` gibi belirli modülleri doğrudan argüman olarak verme desteği eklendi.
+- **UI İyileştirmeleri:** `lib/utils.sh` içerisine modül listeleme fonksiyonları eklendi.
+
 ## [0.0.2-beta] - 2026-01-30
 
 ### Added

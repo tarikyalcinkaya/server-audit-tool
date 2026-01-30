@@ -1,4 +1,4 @@
-# PROJECT MEMORY - Raspberry Pi Security Audit Tool (v0.0.2-beta)
+# PROJECT MEMORY - Raspberry Pi Security Audit Tool (v0.0.3-beta)
 
 ## Context
 
@@ -90,6 +90,8 @@ run_example_check() {
 - [x] 6 temel güvenlik modülü (Domain)
 - [x] 65_ssh_attack_analysis.sh (Gelişmiş SSH Analizi)
 - [x] Merkezi dokümantasyon yapısı (docs/)
+- [x] İnteraktif modül seçim desteği (main.sh)
+- [x] CLI argümanları ile modül filitreleme
 
 ### Gelecek Geliştirmeler
 

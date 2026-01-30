@@ -62,3 +62,14 @@ show_completion_banner() {
     echo -e "${GREEN} DENETİM TAMAMLANDI ${NC}"
     echo -e "${BLUE}========================================${NC}"
 }
+
+# --- Seçim Menüsü Fonksiyonları ---
+
+print_module_list() {
+    local i=1
+    echo -e "${CYAN}Mevcut Güvenlik Modülleri:${NC}"
+    for mod in "$@"; do
+        echo -e "  $i) $mod"
+        ((i++))
+    done
+}

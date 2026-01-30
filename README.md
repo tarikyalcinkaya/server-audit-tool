@@ -1,6 +1,6 @@
 # Server Audit Tool
 
-[![Version](https://img.shields.io/badge/version-0.0.2--beta-orange.svg)](https://github.com/yourusername/server-audit-tool/releases)
+[![Version](https://img.shields.io/badge/version-0.0.3--beta-orange.svg)](https://github.com/yourusername/server-audit-tool/releases)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Raspberry%20Pi-lightgrey.svg)]()
 [![AI Assisted](https://img.shields.io/badge/AI%20Assisted-Google%20Gemini-blue.svg)]()
@@ -32,6 +32,14 @@ chmod +x main.sh
 
 # Denetimi başlat (root gerekli)
 sudo ./main.sh
+
+# Belirli modülleri argüman olarak çalıştır
+sudo ./main.sh ssh network
+
+# İnteraktif modda çalıştırma (Argümansız başlattığınızda soracaktır)
+# Seçim menüsü:
+# 1) Tüm Modülleri Çalıştır
+# 2) Belirli Modülleri Seç
 ```
 
 ## 📁 Proje Yapısı

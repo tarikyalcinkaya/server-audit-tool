@@ -29,35 +29,74 @@ source "${SCRIPT_DIR}/lib/system_adapter.sh"
 # --- 2. Başlangıç Banner'ı ---
 show_banner
 
-# --- 3. Modülleri Otomatik Keşfet ve Çalıştır ---
-# OCP Prensibi: Yeni modül eklemek için bu dosyayı değiştirmeye gerek yok
-# modules/ klasörüne yeni bir *.sh dosyası eklemek yeterli
-
+# --- 3. Modülleri Keşfet ---
 MODULE_DIR="${SCRIPT_DIR}/modules"
-
-if [ -d "$MODULE_DIR" ]; then
-    # Modülleri sıralı olarak yükle (10_, 20_, 30_ ... sırasıyla)
-    for module in $(ls -1 "${MODULE_DIR}"/*.sh 2>/dev/null | sort); do
-        if [ -f "$module" ]; then
-            # Modülü source et
-            source "$module"
-            
-            # Modül adından fonksiyon adını türet
-            # Örn: 10_system.sh -> run_system_check
-            module_name=$(basename "$module" .sh | sed 's/^[0-9]*_//')
-            func_name="run_${module_name}_check"
-            
-            # Fonksiyon varsa çalıştır (hata yakalama ile)
-            if declare -f "$func_name" > /dev/null; then
-                "$func_name" || print_warn "Modül hatası: $module_name"
-            fi
-        fi
-    done
-else
+if [ ! -d "$MODULE_DIR" ]; then
     print_warn "Modül dizini bulunamadı: $MODULE_DIR"
+    exit 1
 fi
 
-# --- 4. Tamamlanma Banner'ı ---
+# Modülleri diziye oku
+mapfile -t MODULE_FILES < <(ls -1 "${MODULE_DIR}"/*.sh 2>/dev/null | sort)
+MODULE_NAMES=()
+for mod in "${MODULE_FILES[@]}"; do
+    MODULE_NAMES+=("$(basename "$mod" .sh)")
+done
+
+# --- 4. Çalıştırma Modunu Belirle ---
+SELECTED_FILES=()
+
+if [[ $# -gt 0 ]]; then
+    # Argüman olarak modül adları verilmişse
+    for arg in "$@"; do
+        for i in "${!MODULE_NAMES[@]}"; do
+            if [[ "${MODULE_NAMES[$i]}" == *"$arg"* ]]; then
+                SELECTED_FILES+=("${MODULE_FILES[$i]}")
+            fi
+        done
+    done
+else
+    # İnteraktif Seçim
+    echo -e "${YELLOW}Denetim Modu Seçin:${NC}"
+    echo "1) Tüm Modülleri Çalıştır (Full Audit)"
+    echo "2) Belirli Modülleri Seç"
+    read -p "Seçiminiz [1/2]: " mode
+
+    if [[ "$mode" == "2" ]]; then
+        print_module_list "${MODULE_NAMES[@]}"
+        read -p "Çalıştırmak istediğiniz modül numaralarını girin (örn: 1 3 5): " selections
+        for sel in $selections; do
+            idx=$((sel-1))
+            if [[ $idx -ge 0 && $idx -lt ${#MODULE_FILES[@]} ]]; then
+                SELECTED_FILES+=("${MODULE_FILES[$idx]}")
+            else
+                print_warn "Geçersiz seçim: $sel"
+            fi
+        done
+    else
+        SELECTED_FILES=("${MODULE_FILES[@]}")
+    fi
+fi
+
+# --- 5. Modülleri Çalıştır ---
+if [ ${#SELECTED_FILES[@]} -eq 0 ]; then
+    print_fail "Çalıştırılacak modül seçilmedi."
+    exit 1
+fi
+
+for module in "${SELECTED_FILES[@]}"; do
+    if [ -f "$module" ]; then
+        source "$module"
+        module_base=$(basename "$module" .sh | sed 's/^[0-9]*_//')
+        func_name="run_${module_base}_check"
+        
+        if declare -f "$func_name" > /dev/null; then
+            "$func_name" || print_warn "Modül hatası: $module_base"
+        fi
+    fi
+done
+
+# --- 6. Tamamlanma Banner'ı ---
 show_completion_banner
 
 exit 0
