@@ -5,6 +5,11 @@ Tüm önemli değişiklikler bu dosyada belgelenir.
 Format [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) standardına,
 versiyonlama [Semantic Versioning](https://semver.org/lang/tr/) standardına uygundur.
 
+## [0.3.3-beta] - 2026-01-30
+
+### Fixed
+- **Modül Sıralaması:** Modüllerin yanlış sırayla çalışması sorunu düzeltildi (`100_suid` modülünün `10_system` modülünden önce çalışması). `sort -V` kullanılarak sayısal sıralama garanti altına alındı.
+
 ## [0.3.2-beta] - 2026-01-30
 
 ### Fixed

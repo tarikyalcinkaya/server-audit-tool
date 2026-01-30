@@ -37,7 +37,7 @@ if [ ! -d "$MODULE_DIR" ]; then
 fi
 
 # Modülleri diziye oku
-mapfile -t MODULE_FILES < <(ls -1 "${MODULE_DIR}"/*.sh 2>/dev/null | sort)
+mapfile -t MODULE_FILES < <(ls -1 "${MODULE_DIR}"/*.sh 2>/dev/null | sort -V)
 MODULE_NAMES=()
 for mod in "${MODULE_FILES[@]}"; do
     MODULE_NAMES+=("$(basename "$mod" .sh)")
