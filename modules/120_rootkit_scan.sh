@@ -4,7 +4,7 @@
 # Sorumlu: RKHunter veya Chkrootkit entegrasyonu
 # ==============================================
 
-run_rootkit_check() {
+run_rootkit_scan_check() {
     print_header "12. ROOTKIT TARAMASI"
     
     if sys_command_exists "rkhunter"; then

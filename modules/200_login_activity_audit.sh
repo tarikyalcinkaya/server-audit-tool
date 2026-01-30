@@ -4,7 +4,7 @@
 # Sorumlu: Başarılı/Başarısız girişlerin (last, lastb) analizi
 # ==============================================
 
-run_login_activity_check() {
+run_login_activity_audit_check() {
     print_header "20. GİRİŞ AKTİVİTE ANALİZİ"
     
     # 1. Son başarılı girişler (Şüpheli IP var mı?)

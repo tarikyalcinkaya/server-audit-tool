@@ -15,7 +15,7 @@ run_network_check() {
         if [ -n "$ufw_status" ]; then
             print_pass "UFW Güvenlik Duvarı AKTİF."
             echo "   --- Kurallar ---"
-            sys_get_ufw_status 2>/dev/null | grep -E "^\[|^--" | head -n 5 || true
+            sys_get_ufw_status 2>/dev/null | grep -v "Status: active" || true
         else
             print_fail "UFW kurulu ama PASİF durumda."
             print_suggestion "Aktifleştirin: sudo ufw allow ssh && sudo ufw enable"

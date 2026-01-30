@@ -4,7 +4,7 @@
 # Sorumlu: Unutulan .env, .git, private key dosyalarının tespiti
 # ==============================================
 
-run_info_leakage_check() {
+run_information_leakage_check() {
     print_header "16. BİLGİ SIZINTISI TARAMASI"
     
     # Tüm diski taramak çok uzun sürer, bu yüzden web dizinlerine odaklanıyoruz

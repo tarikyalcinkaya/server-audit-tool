@@ -4,7 +4,7 @@
 # Sorumlu: Kullanıcıların şüpheli komut kullanımlarını tespit etmek
 # ==============================================
 
-run_bash_history_check() {
+run_bash_history_audit_check() {
     print_header "19. BASH KOMUT GEÇMİŞİ ANALİZİ"
     
     # Tüm kullanıcı ev dizinlerini tara

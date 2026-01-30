@@ -4,7 +4,7 @@
 # Sorumlu: Yetki yükseltme riski taşıyan dosyaları bulma
 # ==============================================
 
-run_suid_check() {
+run_suid_guid_audit_check() {
     print_header "10. SUID/SGID DOSYA TARAMASI"
     
     # SUID: Sahibi yetkisiyle çalışan dosyalar (Örn: ping, passwd)

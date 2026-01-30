@@ -4,7 +4,7 @@
 # Sorumlu: Servis kullanıcılarının (UID < 1000) shell erişimini denetleme
 # ==============================================
 
-run_system_accounts_check() {
+run_system_account_hardening_check() {
     print_header "15. SİSTEM HESAPLARI GÜVENLİĞİ"
     
     # UID 1000'den küçük olup shell'i /bin/bash veya /bin/sh olanları bul

@@ -5,7 +5,15 @@ Tüm önemli değişiklikler bu dosyada belgelenir.
 Format [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) standardına,
 versiyonlama [Semantic Versioning](https://semver.org/lang/tr/) standardına uygundur.
 
-## [0.0.3-beta] - 2026-01-30
+## [0.3.2-beta] - 2026-01-30
+
+### Fixed
+- **UFW Kural Listeleme:** UFW aktif olduğunda kuralların gösterilmemesi sorunu düzeltildi.
+- **Docker Socket İzni:** Docker socket dosyası (/var/run/docker.sock) için "NOT_FOUND" hatası veren izin kontrolü düzeltildi (`-f` yerine `-e` kullanımı).
+- **Process Audit CPU Analizi:** `ps` komutunda `cmd` sütunundaki boşlukların `awk` parsing'i bozması ve hatalı CPU uyarısı vermesi düzeltildi.
+- **Modül Çalıştırma Hatası:** 9 adet modülün (Services, Environment, SUID, Rootkit, System Accounts, Info Leakage, PAM, Bash History, Login Activity) fonksiyon isimlerinin dosya ismiyle eşleşmemesi nedeniyle çalışmaması sorunu giderildi.
+
+## [0.3.1-beta] - 2026-01-30
 
 ### Added
 - **İnteraktif Modül Seçimi:** `main.sh` argümansız çalıştırıldığında kullanıcıya hangi modülleri çalıştırmak istediğini soran menü eklendi.

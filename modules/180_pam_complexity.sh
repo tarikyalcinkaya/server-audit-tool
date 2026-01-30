@@ -4,7 +4,7 @@
 # Sorumlu: pam_pwquality ayarlarının kontrolü
 # ==============================================
 
-run_pam_check() {
+run_pam_complexity_check() {
     print_header "18. PAROLA POLİTİKASI (PAM)"
     
     local PAM_FILE="/etc/pam.d/common-password"

@@ -4,7 +4,7 @@
 # Sorumlu: Gereksiz veya güvensiz servislerin tespiti
 # ==============================================
 
-run_services_check() {
+run_services_audit_check() {
     print_header "8. SERVİS VE DAEMON DENETİMİ"
     
     local insecure_services="telnet ftp rsh nis ypserv tftp"

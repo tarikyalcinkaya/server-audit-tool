@@ -4,7 +4,7 @@
 # Sorumlu: Shell ortamı, banner ve geçici dosya alanı güvenliği
 # ==============================================
 
-run_environment_check() {
+run_environment_security_check() {
     print_header "9. ORTAM GÜVENLİĞİ"
     
     # --- Login Banner ---

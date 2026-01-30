@@ -81,7 +81,7 @@ sys_get_file_permissions() {
     # Dosya izinlerini "perm owner:group" formatında döndürür
     # Kullanım: sys_get_file_permissions "/etc/shadow"
     local file_path="$1"
-    if [ -f "$file_path" ]; then
+    if [ -e "$file_path" ]; then
         stat -c "%a %U:%G" "$file_path" 2>/dev/null
     else
         echo "NOT_FOUND"

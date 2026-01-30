@@ -22,7 +22,7 @@ run_process_audit_check() {
     # 2. Yüksek Kaynak Tüketimi (Basit kontrol)
     # CPU kullanımı %80 üzeri olan işlemleri raporla (Crypto miner?)
     local high_cpu
-    high_cpu=$(ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -n 6 | awk '$5 > 80.0 {print $0}')
+    high_cpu=$(ps -eo pid,ppid,%mem,%cpu,cmd --sort=-%cpu | head -n 6 | awk '$4 > 80.0 {print $0}')
     
     if [ -n "$high_cpu" ]; then
         print_warn "Yüksek CPU tüketen işlem tespit edildi (Miner olabilir?):"
