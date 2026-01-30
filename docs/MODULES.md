@@ -27,6 +27,8 @@ Server Audit Tool, modüler bir yapıdadır. Her modül bağımsız bir güvenli
 - **Kontroller:**
     - UFW (Uncomplicated Firewall) durumu.
     - Fail2Ban servis durumu ve konfigürasyonu.
+    - Dinleyen portların analizi (Yerel vs Dışa açık ayrımı).
+    - Riskli servislerin (Samba, VNC vb.) dışa açık olması durumunda kritik uyarılar.
 
 ### 50_permissions.sh - Dosya İzinleri Modülü
 - **Kapsam:** Kritik sistem dosyalarının yetkileri.

@@ -11,6 +11,7 @@ versiyonlama [Semantic Versioning](https://semver.org/lang/tr/) standardına uyg
 - **İnteraktif Modül Seçimi:** `main.sh` argümansız çalıştırıldığında kullanıcıya hangi modülleri çalıştırmak istediğini soran menü eklendi.
 - **CLI Argüman Desteği:** `sudo ./main.sh ssh network` gibi belirli modülleri doğrudan argüman olarak verme desteği eklendi.
 - **UI İyileştirmeleri:** `lib/utils.sh` içerisine modül listeleme fonksiyonları eklendi.
+- **Ağ Analizi İyileştirmesi:** "Dinleyen port" ile "İnternete açık port" ayrımı eklendi. IPv6 port tespiti düzeltildi.
 
 ## [0.0.2-beta] - 2026-01-30
 

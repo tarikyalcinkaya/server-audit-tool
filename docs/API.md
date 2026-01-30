@@ -25,6 +25,12 @@ Bu katman, işletim sistemi komutlarını güvenli bir şekilde sarmalar.
 - `sys_grep_config(file, pattern)`: Konfigürasyon dosyasında belirli bir satırı arar.
 - `sys_get_config_value(file, pattern)`: Konfigürasyon dosyasından değer (ikinci sütun) çeker.
 
+### Ağ İşlemleri
+- `sys_get_all_listening_ports()`: Sistemde dinlenen tüm portları döner.
+- `sys_get_public_listening_ports()`: Dış dünyaya (0.0.0.0, [::]) açık portları döner.
+- `sys_get_local_listening_ports()`: Sadece localhost (127.0.0.1, ::1) üzerinden dinlenen portları döner.
+- `sys_get_ufw_status()`: UFW güvenlik duvarının ham durum çıktısını döner.
+
 ### Gelişmiş Log Analizi
 - `sys_get_top_attacker_ips(n)`: En aktif N saldırgan IP adresini ve deneme sayılarını döner.
 - `sys_get_targeted_usernames(n)`: En çok saldırıya uğrayan N kullanıcı adını döner.

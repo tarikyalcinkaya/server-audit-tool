@@ -55,9 +55,19 @@ sys_command_exists() {
 
 # --- Ağ ---
 
-sys_get_listening_ports() {
-    # Dinlenen portları virgülle ayrılmış liste olarak döndürür
-    ss -tuln 2>/dev/null | grep LISTEN | awk '{print $5}' | cut -d: -f2 | sort -u | paste -sd "," - | sed 's/^,//'
+sys_get_all_listening_ports() {
+    # Tüm dinlenen portları döndürür
+    ss -tuln 2>/dev/null | grep LISTEN | awk '{print $5}' | sed 's/.*://' | sort -un | paste -sd "," -
+}
+
+sys_get_public_listening_ports() {
+    # 0.0.0.0, [::] veya dış IP üzerinden dinlenen (gerçekten açık) portlar
+    ss -tuln 2>/dev/null | grep LISTEN | awk '$5 !~ /127.0.0.1|::1/ {print $5}' | sed 's/.*://' | sort -un | paste -sd "," -
+}
+
+sys_get_local_listening_ports() {
+    # Sadece 127.0.0.1 veya ::1 üzerinden dinlenen (yerel) portlar
+    ss -tuln 2>/dev/null | grep LISTEN | awk '$5 ~ /127.0.0.1|::1/ {print $5}' | sed 's/.*://' | sort -un | paste -sd "," -
 }
 
 sys_get_ufw_status() {

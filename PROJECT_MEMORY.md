@@ -92,6 +92,7 @@ run_example_check() {
 - [x] Merkezi dokümantasyon yapısı (docs/)
 - [x] İnteraktif modül seçim desteği (main.sh)
 - [x] CLI argümanları ile modül filitreleme
+- [x] Port dinleme analizinde yerel/public ayrımı
 
 ### Gelecek Geliştirmeler
 

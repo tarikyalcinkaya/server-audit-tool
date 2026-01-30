@@ -34,17 +34,28 @@ run_network_check() {
     fi
     
     # --- Açık Port Analizi ---
-    print_info "Dış dünyaya açık portlar (Listen):"
-    local ports
-    ports=$(sys_get_listening_ports)
-    echo "   $ports"
+    print_info "Ağ Port Analizi:"
     
-    # Riskli port uyarıları
-    if [[ "$ports" == *"139"* ]] || [[ "$ports" == *"445"* ]]; then
-        print_suggestion "Samba (Dosya Paylaşımı) açık. İnternete açıksa VPN arkasına alın!"
+    local public_ports
+    public_ports=$(sys_get_public_listening_ports)
+    if [ -n "$public_ports" ]; then
+        print_warn "Dış dünyaya (İnternet) açık portlar: $public_ports"
+    else
+        print_pass "İnternete doğrudan açık port bulunamadı."
+    fi
+
+    local local_ports
+    local_ports=$(sys_get_local_listening_ports)
+    if [ -n "$local_ports" ]; then
+        print_info "Sadece yerel (localhost) dinlenen portlar: $local_ports"
     fi
     
-    if [[ "$ports" == *"5900"* ]]; then
-        print_suggestion "VNC açık. Çok riskli! SSH Tünel üzerinden kullanın."
+    # Riskli port uyarıları
+    if [[ "$public_ports" == *"139"* ]] || [[ "$public_ports" == *"445"* ]]; then
+        print_fail "KRİTİK: Samba (Dosya Paylaşımı) İNTERNETE AÇIK! Hemen kapatın veya VPN arkasına alın."
+    fi
+    
+    if [[ "$public_ports" == *"5900"* ]]; then
+        print_fail "KRİTİK: VNC internete açık! SSH tünel kullanın."
     fi
 }
