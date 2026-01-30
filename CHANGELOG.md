@@ -13,6 +13,16 @@ versiyonlama [Semantic Versioning](https://semver.org/lang/tr/) standardına uyg
 - **UI İyileştirmeleri:** `lib/utils.sh` içerisine modül listeleme fonksiyonları eklendi.
 - **Ağ Analizi İyileştirmesi:** "Dinleyen port" ile "İnternete açık port" ayrımı eklendi. IPv6 port tespiti düzeltildi.
 
+## [0.1.0-alpha] - 2026-01-30
+
+### Added
+- **Güvenlik Çekirdeği Genişletmesi:**
+  - `70_kernel_hardening.sh`: Kritik kernel parametreleri (sysctl) denetimi.
+  - `80_services_audit.sh`: Telnet, FTP gibi güvensiz aktif servis taraması.
+  - `90_environment_security.sh`: Login banner'ları, /tmp mount güvenliği.
+  - `100_suid_guid_audit.sh`: SUID/SGID bit'e sahip riskli dosya analizi.
+- **Altyapı (Infrastructure):** `sys_get_sysctl_value`, `sys_find_suid_files` gibi yeni yardımcı fonksiyonlar.
+
 ## [0.0.2-beta] - 2026-01-30
 
 ### Added
