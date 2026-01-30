@@ -46,7 +46,8 @@ show_banner() {
     clear
     echo -e "${BLUE}"
     echo "#############################################"
-    echo "  RASPBERRY PI GÜVENLİK DENETİMİ BAŞLIYOR  "
+    echo "  LINUX GÜVENLİK DENETİMİ VE HARDENING ARACI  "
+    echo "       (Raspberry Pi & Debian/Ubuntu)       "
     echo "#############################################"
     echo -e "${NC}"
     echo "Tarih: $(date)"
@@ -73,3 +74,5 @@ print_module_list() {
         ((i++))
     done
 }
+
+export REPORT_FILE="audit_report_$(date +%Y%m%d_%H%M%S).txt"

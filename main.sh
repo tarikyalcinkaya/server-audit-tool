@@ -84,17 +84,26 @@ if [ ${#SELECTED_FILES[@]} -eq 0 ]; then
     exit 1
 fi
 
-for module in "${SELECTED_FILES[@]}"; do
-    if [ -f "$module" ]; then
-        source "$module"
-        module_base=$(basename "$module" .sh | sed 's/^[0-9]*_//')
-        func_name="run_${module_base}_check"
-        
-        if declare -f "$func_name" > /dev/null; then
-            "$func_name" || print_warn "Modül hatası: $module_base"
+print_info "Rapor Dosyası: $REPORT_FILE"
+
+{
+    show_banner
+    for module in "${SELECTED_FILES[@]}"; do
+        if [ -f "$module" ]; then
+            source "$module"
+            module_base=$(basename "$module" .sh | sed 's/^[0-9]*_//')
+            func_name="run_${module_base}_check"
+            
+            if declare -f "$func_name" > /dev/null; then
+                "$func_name" || print_warn "Modül hatası: $module_base"
+            fi
         fi
-    fi
-done
+    done
+    show_completion_banner
+} | tee -a "$REPORT_FILE"
+
+# ANSI renk kodlarını rapordan temizle (Opsiyonel)
+sed -i 's/\x1b\[[0-9;]*m//g' "$REPORT_FILE"
 
 # --- 6. Tamamlanma Banner'ı ---
 show_completion_banner
