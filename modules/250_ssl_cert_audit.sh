@@ -4,7 +4,7 @@
 # Sorumlu: Süresi dolmuş veya dolmak üzere olan sertifikalar
 # ==============================================
 
-run_ssl_cert_check() {
+run_ssl_cert_audit_check() {
     print_header "25. SSL SERTİFİKA DENETİMİ"
     
     print_info "Yaygın sertifika dizinleri taranıyor (/etc/ssl, /etc/letsencrypt, /var/www)..."

@@ -4,7 +4,7 @@
 # Sorumlu: Kötü amaçlı cron işlerinin tespiti
 # ==============================================
 
-run_cron_job_check() {
+run_cron_audit_check() {
     print_header "23. CRON GÖREVLERİ DENETİMİ"
     
     print_info "Sistem genelindeki Cron işleri taranıyor..."

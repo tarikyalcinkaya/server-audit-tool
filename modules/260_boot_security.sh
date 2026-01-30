@@ -29,11 +29,15 @@ run_boot_security_check() {
         cam_status=$(grep "^start_x=1" "$config_txt")
         if [ -n "$cam_status" ]; then
             print_info "Kamera arayüzü aktif."
+        else
+            print_pass "Kamera arayüzü pasif (Güvenli)."
         fi
         
         local ssh_boot
         if [ -f "/boot/ssh" ] || [ -f "/boot/firmware/ssh" ]; then
             print_warn "Boot bölümünde 'ssh' dosyası var (SSH otomatik aktif oluyor)."
+        else
+            print_pass "Boot bölümünde 'ssh' dosyası yok."
         fi
     fi
     
@@ -45,5 +49,7 @@ run_boot_security_check() {
         else
              print_warn "Secure Boot kapalı."
         fi
+    else
+        print_info "Secure Boot durumu kontrol edilemedi (mokutil yok veya platform desteklemiyor)."
     fi
 }

@@ -5,6 +5,13 @@ Tüm önemli değişiklikler bu dosyada belgelenir.
 Format [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/) standardına,
 versiyonlama [Semantic Versioning](https://semver.org/lang/tr/) standardına uygundur.
 
+## [0.3.4-beta] - 2026-01-30
+
+### Fixed
+- **Eksik Modüller:** `230_cron_audit` ve `250_ssl_cert_audit` modüllerinin fonksiyon isimlerindeki hatalar giderildi, artık taramaya dahil ediliyorlar.
+- **Rapor Formatı:** "DENETİM TAMAMLANDI" mesajının iki kere basılması sorunu düzeltildi.
+- **Boot Güvenliği Modülü:** Modülün sessiz çalışması engellendi, artık her kontrol için (Kamera, SSH, Secure Boot) olumlu/olumsuz geri bildirim veriyor.
+
 ## [0.3.3-beta] - 2026-01-30
 
 ### Fixed

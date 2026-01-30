@@ -1,4 +1,4 @@
-# PROJECT MEMORY - Raspberry Pi Security Audit Tool (v0.3.3-beta)
+# PROJECT MEMORY - Raspberry Pi Security Audit Tool (v0.3.4-beta)
 
 ## Context
 

@@ -106,6 +106,6 @@ print_info "Rapor Dosyası: $REPORT_FILE"
 sed -i 's/\x1b\[[0-9;]*m//g' "$REPORT_FILE"
 
 # --- 6. Tamamlanma Banner'ı ---
-show_completion_banner
+
 
 exit 0
