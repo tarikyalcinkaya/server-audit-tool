@@ -13,6 +13,18 @@ versiyonlama [Semantic Versioning](https://semver.org/lang/tr/) standardına uyg
 - **UI İyileştirmeleri:** `lib/utils.sh` içerisine modül listeleme fonksiyonları eklendi.
 - **Ağ Analizi İyileştirmesi:** "Dinleyen port" ile "İnternete açık port" ayrımı eklendi. IPv6 port tespiti düzeltildi.
 
+## [0.2.0-alpha] - 2026-01-30
+
+### Added
+- **Gelişmiş Tehdit Taraması:**
+  - `110_virus_scan.sh`: ClamAV ile virüs tarama entegrasyonu.
+  - `120_rootkit_scan.sh`: RKHunter ve Chkrootkit ile rootkit taraması.
+  - `160_information_leakage.sh`: Hassas dosya (.env, .git, private keys) sızıntı taraması.
+- **Sistem Sıkılaştırma:**
+  - `130_file_integrity.sh`: Kritik sistem dosyaları (passwd, shadow, bin/*) için hash kontrolü.
+  - `140_shared_memory.sh`: `/dev/shm` ve `/run/shm` güvenli mount seçenekleri kontrolü.
+  - `150_system_account_hardening.sh`: Sistem hesaplarının (UID < 1000) shell erişim denetimi.
+
 ## [0.1.0-alpha] - 2026-01-30
 
 ### Added
