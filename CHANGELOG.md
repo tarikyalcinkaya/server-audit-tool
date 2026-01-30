@@ -13,6 +13,18 @@ versiyonlama [Semantic Versioning](https://semver.org/lang/tr/) standardına uyg
 - **UI İyileştirmeleri:** `lib/utils.sh` içerisine modül listeleme fonksiyonları eklendi.
 - **Ağ Analizi İyileştirmesi:** "Dinleyen port" ile "İnternete açık port" ayrımı eklendi. IPv6 port tespiti düzeltildi.
 
+## [0.3.0-beta] - 2026-01-30
+
+### Added
+- **Kapsamlı Güvenlik Genişletmesi (22+ Yeni Modül):**
+  - **Forensik & İzleme:** Bash geçmişi (`190`), Giriş aktiviteleri (`200`), Cron (`230`) ve Süreç analizi (`240`).
+  - **Ağ Güvenliği:** Derin Ağ Taraması (`210` - Promiscuous, ARP Spoofing).
+  - **Uygulama Güvenliği:** Docker Daemon/Container (`170`), SSL Sertifika (`250`).
+  - **Erişim Yönetimi:** PAM Parola Politikaları (`180`), USB Güvenliği (`280`).
+  - **Dosya Sistemi:** Detaylı İzin (`220`), Boot/GRUB Güvenliği (`260`).
+- **Raporlama Sistemi:** Tüm denetim sonuçları artık tarih damgalı `audit_report_YYYYMMDD.txt` dosyasına kaydediliyor.
+- **Evrensel Linux Desteği:** Araç artık sadece Raspberry Pi değil, Debian/Ubuntu tabanlı genel sunucular için optimize edildi.
+
 ## [0.2.0-alpha] - 2026-01-30
 
 ### Added
